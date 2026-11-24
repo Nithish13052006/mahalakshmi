@@ -1,0 +1,429 @@
+/* ============================================
+   HERO — Cinematic Full-Screen Slideshow
+   ============================================ */
+
+/* ---- Container ---- */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+/* ---- Slideshow Track ---- */
+.hero__slides {
+  position: absolute;
+  inset: 0;
+}
+
+/* ---- Individual Slide ---- */
+.hero__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+/* First slide visible immediately so there's no flash */
+.hero__slide:first-child {
+  opacity: 1;
+}
+
+.hero__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* Ken-Burns origin in center; GSAP will animate scale */
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* Per-slide object-position (subjects never cropped) */
+.hero__slide[data-slide="0"] img { object-position: center 60%; } /* misty lake — couple center-lower */
+.hero__slide[data-slide="1"] img { object-position: 28% center; } /* flying fabric — couple left */
+.hero__slide[data-slide="2"] img { object-position: center 42%; } /* reception — couple center stage */
+.hero__slide[data-slide="3"] img { object-position: 22% center; } /* Infinite Love — couple far left */
+
+/* ---- Gradient Overlays ---- */
+/* Dark vignette — always present */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+
+  /* Bottom gradient for text legibility */
+  background:
+    linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.18) 55%, transparent 100%),
+    linear-gradient(to top, rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.0) 50%),
+    linear-gradient(to bottom, rgba(0,0,0,0.38) 0%, transparent 25%);
+}
+
+/* ---- Hero Content ---- */
+.hero__content {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 var(--container-padding) clamp(4rem, 8vh, 7rem);
+  max-width: 760px; /* text stays on the left */
+}
+
+/* ---- Label ---- */
+.hero__label {
+  font-family: var(--font-sans);
+  font-size: clamp(0.58rem, 0.8vw, 0.68rem);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-accent-gold);
+  font-weight: 400;
+  opacity: 0;
+  transform: translateY(10px);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hero__label::before {
+  content: '';
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: var(--color-accent-gold);
+  flex-shrink: 0;
+}
+
+/* ---- Headline ---- */
+.hero__headline {
+  margin: 0 0 1.4rem;
+}
+
+.hero__headline-line {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: var(--text-hero);
+  font-weight: 400;
+  line-height: 0.95;
+  color: var(--color-white);
+  letter-spacing: -0.01em;
+  opacity: 0;
+  transform: translateY(50px);
+  overflow: hidden;
+}
+
+.hero__headline-line:first-child {
+  margin-bottom: 0.08em;
+}
+
+/* ---- Description ---- */
+.hero__description {
+  font-family: var(--font-sans);
+  font-size: clamp(0.82rem, 1.1vw, 0.95rem);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  line-height: 1.75;
+  color: rgba(245, 240, 232, 0.72);
+  max-width: 400px;
+  opacity: 0;
+  transform: translateY(20px);
+  margin-bottom: 2.2rem;
+}
+
+/* ---- CTAs ---- */
+.hero__ctas {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Primary CTA */
+.hero__cta-primary {
+  font-family: var(--font-sans);
+  font-size: clamp(0.62rem, 0.85vw, 0.72rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-black);
+  background: var(--color-accent-gold);
+  padding: 0.9em 2em;
+  font-weight: 500;
+  transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+  white-space: nowrap;
+}
+
+.hero__cta-primary:hover {
+  background: var(--color-accent-gold-light);
+  transform: translateY(-2px);
+}
+
+/* Secondary CTA */
+.hero__cta-secondary {
+  font-family: var(--font-sans);
+  font-size: clamp(0.62rem, 0.85vw, 0.72rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.88);
+  font-weight: 400;
+  position: relative;
+  padding-bottom: 3px;
+  transition: color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.hero__cta-secondary::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(245, 240, 232, 0.4);
+  transition: background var(--transition-fast);
+}
+
+.hero__cta-secondary:hover {
+  color: var(--color-white);
+}
+
+.hero__cta-secondary:hover::after {
+  background: var(--color-white);
+}
+
+/* ---- Slide Indicators ---- */
+.hero__indicators {
+  position: absolute;
+  bottom: clamp(2.5rem, 5vh, 4.5rem);
+  right: var(--container-padding);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  transform: translateX(10px);
+}
+
+.hero__indicator {
+  width: 2px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: background var(--transition-fast);
+  border: none;
+  padding: 0;
+}
+
+.hero__indicator::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: var(--color-accent-gold);
+  transition: height 0.2s ease;
+}
+
+.hero__indicator.active::after {
+  animation: indicatorFill 5.5s linear forwards;
+}
+
+@keyframes indicatorFill {
+  from { height: 0% }
+  to   { height: 100% }
+}
+
+@keyframes indicatorFillH {
+  from { width: 0% }
+  to   { width: 100% }
+}
+
+.hero__indicator:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* ---- Scroll Indicator ---- */
+.hero__scroll {
+  position: absolute;
+  bottom: clamp(2rem, 4vh, 3.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.hero__scroll:hover {
+  opacity: 0.9 !important;
+}
+
+.hero__scroll-label {
+  font-family: var(--font-sans);
+  font-size: 0.55rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.6);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.hero__scroll-line {
+  width: 1px;
+  height: 50px;
+  background: rgba(245, 240, 232, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__scroll-line::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-accent-gold);
+  animation: scrollDrop 1.8s ease-in-out infinite;
+}
+
+@keyframes scrollDrop {
+  0%   { top: -100%; opacity: 1; }
+  80%  { top: 100%;  opacity: 1; }
+  100% { top: 100%;  opacity: 0; }
+}
+
+/* ---- Slide Counter ---- */
+.hero__counter {
+  position: absolute;
+  top: 50%;
+  right: var(--container-padding);
+  transform: translateY(-50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  opacity: 0;
+}
+
+.hero__counter-current {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--color-white);
+  line-height: 1;
+  font-weight: 400;
+}
+
+.hero__counter-divider {
+  width: 1px;
+  height: 36px;
+  background: rgba(201, 169, 110, 0.4);
+}
+
+.hero__counter-total {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  color: rgba(245, 240, 232, 0.5);
+  letter-spacing: 0.1em;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1024px) {
+  .hero__content {
+    max-width: 620px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* On mobile, text goes slightly higher so scroll indicator has room */
+  .hero__content {
+    padding-bottom: clamp(5rem, 12vh, 8rem);
+    max-width: 100%;
+  }
+
+  /* Mobile per-slide object-position — keep subjects visible on portrait */
+  .hero__slide[data-slide="0"] img { object-position: 55% 60%; } /* lift couple, slightly right */
+  .hero__slide[data-slide="1"] img { object-position: 25% center; } /* couple far left */
+  .hero__slide[data-slide="2"] img { object-position: center 45%; }
+  .hero__slide[data-slide="3"] img { object-position: 20% center; }
+
+  /* Indicators → horizontal dots on mobile */
+  .hero__indicators {
+    flex-direction: row;
+    bottom: clamp(1.8rem, 4vh, 3rem);
+    right: 50%;
+    transform: translateX(50%);
+    gap: 8px;
+  }
+
+  .hero__indicator {
+    width: 20px;
+    height: 2px;
+  }
+
+  .hero__indicator::after {
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+  }
+
+  .hero__indicator.active::after {
+    animation: indicatorFillH 5.5s linear forwards;
+  }
+
+  /* Hide side counter on mobile */
+  .hero__counter {
+    display: none;
+  }
+
+  /* Scroll indicator hidden on mobile (content is below the fold naturally) */
+  .hero__scroll {
+    display: none;
+  }
+
+  /* Overlay a bit heavier on mobile for text contrast */
+  .hero__overlay {
+    background:
+      linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 70%, transparent 100%),
+      linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.0) 55%),
+      linear-gradient(to bottom, rgba(0,0,0,0.42) 0%, transparent 22%);
+  }
+
+  .hero__description {
+    max-width: 100%;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero__ctas {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .hero__cta-primary {
+    padding: 0.85em 1.6em;
+  }
+}
+
+/* Prevent horizontal overflow */
+.hero, .hero * {
+  max-width: 100vw;
+}

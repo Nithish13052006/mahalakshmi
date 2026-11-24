@@ -1,0 +1,353 @@
+/* ============================================
+   FILMS SECTION — Luxury Video & Reels Showcase
+   ============================================ */
+
+.films-section {
+  position: relative;
+  background-color: var(--color-bg-secondary);
+  padding: clamp(5rem, 10vw, 9rem) 0;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.films-header {
+  max-width: 680px;
+  margin-bottom: clamp(3rem, 5vw, 4.5rem);
+}
+
+.films-header .section-title em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--color-accent-gold-light);
+}
+
+/* ============================================
+   CINEMA SHOWCASE GRID
+   ============================================ */
+
+.films-showcase-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 0.85fr;
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: stretch;
+}
+
+/* Main Cinema Player Card */
+.films-main-player {
+  position: relative;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+}
+
+.player-aspect-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 540px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(2rem, 4vw, 3.5rem);
+}
+
+.player-poster-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  transition: transform 1s ease;
+  filter: brightness(0.85);
+}
+
+.films-main-player:hover .player-poster-img {
+  transform: scale(1.03);
+}
+
+.player-overlay-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(17, 16, 15, 0.96) 0%,
+    rgba(17, 16, 15, 0.6) 45%,
+    rgba(17, 16, 15, 0.2) 100%
+  );
+  pointer-events: none;
+}
+
+.player-details {
+  position: relative;
+  z-index: 2;
+  max-width: 580px;
+}
+
+.player-badge {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent-gold);
+  margin-bottom: 0.75rem;
+}
+
+.player-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+  font-weight: 400;
+  color: var(--color-text-primary);
+  line-height: 1.15;
+  margin-bottom: 0.4rem;
+}
+
+.player-couple {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--color-accent-gold-light);
+  margin-bottom: 1rem;
+}
+
+.player-desc {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+.player-action-row {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.instagram-brand-pill {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(17, 16, 15, 0.85);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(8px);
+  padding: 0.5rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  color: var(--color-text-primary);
+  transition: all var(--transition-fast);
+}
+
+.instagram-brand-pill:hover {
+  border-color: var(--color-accent-gold);
+  color: var(--color-accent-gold);
+}
+
+.ig-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #e1306c;
+}
+
+/* ============================================
+   QUEUE & REEL SELECTION
+   ============================================ */
+
+.films-queue {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.queue-heading {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.queue-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.queue-item {
+  display: flex;
+  gap: 1.2rem;
+  padding: 1rem;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-subtle);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.queue-item:hover {
+  border-color: var(--color-border);
+  background: var(--color-bg-tertiary);
+}
+
+.queue-item.active {
+  border-color: var(--color-accent-gold);
+  background: rgba(184, 155, 112, 0.05);
+}
+
+.queue-thumb-wrap {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+.queue-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.queue-play-mini {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--color-white);
+  background: rgba(0, 0, 0, 0.4);
+  transition: background var(--transition-fast);
+}
+
+.queue-item:hover .queue-play-mini {
+  background: rgba(184, 155, 112, 0.6);
+}
+
+.queue-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.queue-type {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent-gold);
+}
+
+.queue-title {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--color-text-primary);
+  line-height: 1.25;
+}
+
+.queue-couple {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+/* Official Instagram Box */
+.instagram-official-box {
+  padding: 1.8rem;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  margin-top: 0.5rem;
+}
+
+.ig-box-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+}
+
+.ig-logo-text {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--color-text-primary);
+}
+
+.ig-verified-badge {
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent-gold);
+}
+
+.ig-box-text {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+  margin-bottom: 1.2rem;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 968px) {
+  .films-showcase-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .player-aspect-wrapper {
+    min-height: 440px;
+  }
+}
+
+@media (max-width: 600px) {
+  .player-aspect-wrapper {
+    min-height: 340px;
+    padding: 1.2rem;
+  }
+
+  .player-action-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.8rem;
+  }
+
+  .instagram-brand-pill {
+    top: 0.75rem;
+    right: 0.75rem;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.6rem;
+  }
+
+  .player-title {
+    font-size: 1.4rem;
+  }
+
+  .queue-thumb-wrap {
+    width: 70px;
+    height: 70px;
+  }
+
+  .queue-title {
+    font-size: 0.9rem;
+  }
+
+  .instagram-official-box {
+    padding: 1.2rem;
+  }
+}
+

@@ -1,0 +1,201 @@
+/* ============================================
+   TESTIMONIALS SECTION — Editorial Typography
+   ============================================ */
+
+.testimonials-section {
+  position: relative;
+  background-color: var(--color-bg-primary);
+  padding: clamp(5rem, 10vw, 9rem) 0;
+  border-top: 1px solid var(--color-border-subtle);
+  overflow: hidden;
+}
+
+.testimonials-header {
+  max-width: 650px;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.testimonials-header .section-title em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--color-accent-gold-light);
+}
+
+/* ============================================
+   EDITORIAL QUOTATION STAGE
+   ============================================ */
+
+.testimonials-stage {
+  position: relative;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  padding: clamp(3rem, 6vw, 6rem) clamp(2rem, 5vw, 5rem);
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+.quote-mark {
+  position: absolute;
+  top: 1.5rem;
+  left: 2.5rem;
+  font-family: var(--font-serif);
+  font-size: clamp(5rem, 10vw, 8rem);
+  color: rgba(184, 155, 112, 0.12);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.testimonial-card {
+  position: relative;
+  z-index: 2;
+  animation: fadeInTestimonial 0.6s ease forwards;
+}
+
+@keyframes fadeInTestimonial {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.testimonial-quote {
+  font-family: var(--font-serif);
+  font-size: clamp(1.3rem, 2.3vw, 2.1rem);
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--color-text-primary);
+  margin-bottom: 2.5rem;
+}
+
+.testimonial-author-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.testimonial-placeholder-tag {
+  font-family: var(--font-sans);
+  font-size: clamp(0.72rem, 0.9vw, 0.8rem);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-accent-gold);
+  font-weight: 500;
+}
+
+.testimonial-meta-line {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  flex-wrap: wrap;
+}
+
+.meta-sep {
+  opacity: 0.4;
+}
+
+/* Minimal Controls */
+.testimonial-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.testimonial-counter {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+}
+
+.counter-current {
+  color: var(--color-accent-gold);
+}
+
+.counter-slash {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.counter-total {
+  color: var(--color-text-muted);
+}
+
+.testimonial-nav-btns {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.testimonial-nav-btn {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-primary);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.testimonial-nav-btn:hover {
+  border-color: var(--color-accent-gold);
+  color: var(--color-accent-gold);
+  background: rgba(184, 155, 112, 0.08);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .testimonials-stage {
+    padding: 3rem 1.8rem;
+  }
+
+  .testimonial-quote {
+    font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+  }
+}
+
+@media (max-width: 600px) {
+  .testimonials-stage {
+    padding: 2.5rem 1.4rem;
+  }
+
+  .testimonial-quote {
+    font-size: 1.1rem;
+  }
+
+  .quote-mark {
+    left: 1rem;
+    top: 0.5rem;
+    font-size: 4rem;
+  }
+
+  .testimonial-controls {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .testimonial-nav-btns {
+    align-self: flex-end;
+  }
+}
+
